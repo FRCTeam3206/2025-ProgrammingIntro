@@ -5,38 +5,38 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.util.sendable.SendableRegistry;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
-
 import java.util.function.DoubleSupplier;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class Drive extends SubsystemBase {
   // The motors on the left side of the drive.
-  private final PWMSparkMax m_leftLeader = new PWMSparkMax(DriveConstants.kLeftMotor1ID);
-  private final PWMSparkMax m_leftFollower = new PWMSparkMax(DriveConstants.kLeftMotor2ID);
+  private final VictorSPX m_leftLeader = new VictorSPX(DriveConstants.kLeftMotor1ID);
+  private final VictorSPX m_leftFollower = new VictorSPX(DriveConstants.kLeftMotor2ID);
 
   // The motors on the right side of the drive.
-  private final PWMSparkMax m_rightLeader = new PWMSparkMax(DriveConstants.kRightMotor1ID);
-  private final PWMSparkMax m_rightFollower = new PWMSparkMax(DriveConstants.kRightMotor2ID);
+  private final VictorSPX m_rightLeader = new VictorSPX(DriveConstants.kRightMotor1ID);
+  private final VictorSPX m_rightFollower = new VictorSPX(DriveConstants.kRightMotor2ID);
 
   // The robot's drive
   // @NotLogged // Would duplicate motor data, there's no point sending it twice
   private final DifferentialDrive m_drive =
-      new DifferentialDrive(m_leftLeader::set, m_rightLeader::set);
-
-  private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+      new DifferentialDrive(
+        (value) -> m_leftLeader.set(ControlMode.PercentOutput, value),
+        (value) -> m_rightLeader.set(ControlMode.PercentOutput, value)
+      );
 
   /** Creates a new Drive subsystem. */
   public Drive() {
     SendableRegistry.addChild(m_drive, m_leftLeader);
     SendableRegistry.addChild(m_drive, m_rightLeader);
 
-    m_leftLeader.addFollower(m_leftFollower);
-    m_rightLeader.addFollower(m_rightFollower);
+    m_leftFollower.follow(m_leftLeader);
+    m_rightFollower.follow(m_rightLeader);
 
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
