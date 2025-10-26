@@ -10,25 +10,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import java.util.function.DoubleSupplier;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class Drive extends SubsystemBase {
   // The motors on the left side of the drive.
-  private final VictorSPX m_leftLeader = new VictorSPX(DriveConstants.kLeftMotor1ID);
-  private final VictorSPX m_leftFollower = new VictorSPX(DriveConstants.kLeftMotor2ID);
+  private final WPI_VictorSPX m_leftLeader = new WPI_VictorSPX(DriveConstants.kLeftMotor1ID);
+  private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(DriveConstants.kLeftMotor2ID);
 
   // The motors on the right side of the drive.
-  private final VictorSPX m_rightLeader = new VictorSPX(DriveConstants.kRightMotor1ID);
-  private final VictorSPX m_rightFollower = new VictorSPX(DriveConstants.kRightMotor2ID);
+  private final WPI_VictorSPX m_rightLeader = new WPI_VictorSPX(DriveConstants.kRightMotor1ID);
+  private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(DriveConstants.kRightMotor2ID);
 
   // The robot's drive
   // @NotLogged // Would duplicate motor data, there's no point sending it twice
   private final DifferentialDrive m_drive =
-      new DifferentialDrive(
-        (value) -> m_leftLeader.set(ControlMode.PercentOutput, value),
-        (value) -> m_rightLeader.set(ControlMode.PercentOutput, value)
-      );
+      new DifferentialDrive( m_leftLeader::set, m_rightLeader::set);
 
   /** Creates a new Drive subsystem. */
   public Drive() {
