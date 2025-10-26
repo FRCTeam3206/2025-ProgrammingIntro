@@ -4,7 +4,7 @@ export_on_save:
 ---
 # Section 1: Git-ting Started
 
-## Lesson 1: Cloneing around
+## Lesson 1: Clone-ing around
 This repo (short for repository) is stored in the [FRCTeam3206 GitHub account](https://github.com/FRCTeam3206). In order to work with it on your own computer, you will need to [clone](https://git-scm.com/docs/git-clone) it. Cloning creates a local copy of the repository on your computer that is linked to the remote repository stored on GitHub. You will be able to edit this local repository in wPILib VSCode.
 
 There are several ways to clone a repo from GitHub. First, open the [2025-ProgrammingIntro](https://github.com/FRCTeam3206/2025-ProgrammingIntro) repo on GitHub. Above the code window, there is a green button that says `<>Code` on it. Click on this button to see a menu with several options to clone the repo. The simplest option, if you have [GitHub Desktop](https://desktop.github.com/) installed is to select `Open in GitHub Desktop`. This will create a clone linked to the remote repository. The clone will be located in the "GitHub" directory under "Documents". 
@@ -13,7 +13,7 @@ Now that you have cloned this repo, open WPILib VSCode and then open the reposit
 * On the menu bar, click on `File` then `Open Folder ...`, you could also use the keyboard shortcut `Ctrl-K Ctrl-O`.
 * Navigate to `Documents\GitHub`
 * Click on the folder with this repository
-* Click on the `Select Folder` button (this still works if you navigate into the folder
+* Click on the `Select Folder` button (this still works if you navigate into the folder)
 
 You should now see the contents of this repo on the left side of the VSCode window. Most of the folders and files that you see are there to support the build and deploy process and you won't need to make any changes to them. The robot code will all be stored in:
 ``` 
