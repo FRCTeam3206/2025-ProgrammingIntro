@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   public Robot() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // Instantiate our Robot.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     configureBindings();
   }
