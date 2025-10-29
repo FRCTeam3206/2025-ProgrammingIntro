@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.Drive;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -18,6 +19,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+
+  private final Drive drive = new Drive();
+  private final CommandXboxController controller = new CommandXboxController(0);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -39,7 +43,8 @@ public class Robot extends TimedRobot {
    * joysticks}.
    */
   private void configureBindings() {
-
+    drive.setDefaultCommand(
+      drive.arcadeDriveCommand(() -> -0.25*controller.getLeftY(), () -> -0.25*controller.getRightX()));
   }
 
   /**
@@ -52,7 +57,6 @@ public class Robot extends TimedRobot {
     return new RunCommand(() -> {});
   }
 
-//ignore line 55
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
