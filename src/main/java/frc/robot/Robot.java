@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
    */
   private void configureBindings() {
     drive.setDefaultCommand(
-      drive.arcadeDriveCommand(() -> -0.25*controller.getLeftY(), () -> -2.5*controller.getRightX()));
+      drive.arcadeDriveCommand(() -> -controller.getLeftY(), () -> -controller.getRightX()));
   }
 
   /**
