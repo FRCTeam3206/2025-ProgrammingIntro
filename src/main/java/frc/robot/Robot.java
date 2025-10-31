@@ -54,9 +54,8 @@ public class Robot extends TimedRobot {
    */
   public Command getAutonomousCommand() {
     // return a command that does nothing
-    return new RunCommand(() -> {});
+    return simpleAuto();
   }
-
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -105,6 +104,12 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+  }
+
+  public Command simpleAuto() {
+    return drive.arcadeDriveCommand(() -> 0.5, () -> 0).withTimeout(2)
+    .andThen(drive.arcadeDriveCommand(() -> 0, () -> 0.5).withTimeout(2))
+    .andThen(drive.arcadeDriveCommand(() -> 0.5, () -> 0).withTimeout(2));
   }
 
   /** This function is called periodically during operator control. */

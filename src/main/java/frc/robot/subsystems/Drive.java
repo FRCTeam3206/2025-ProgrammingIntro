@@ -37,11 +37,12 @@ public class Drive extends SubsystemBase {
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_rightLeader.setInverted(true);
+    m_leftLeader.setInverted(true);
+    m_leftFollower.setInverted(true);
   }
-
-  /**
-   * Returns a command that drives the robot with arcade controls.
+  
+   /**
+    * Returns a command that drives the robot with arcade controls.
    *
    * @param fwd the commanded forward movement
    * @param rot the commanded rotation
