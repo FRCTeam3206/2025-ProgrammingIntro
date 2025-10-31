@@ -31,13 +31,14 @@ public class Drive extends SubsystemBase {
     SendableRegistry.addChild(m_drive, m_leftLeader);
     SendableRegistry.addChild(m_drive, m_rightLeader);
 
-    m_leftFollower.follow(m_leftLeader);
-    m_rightFollower.follow(m_rightLeader);
-
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_rightLeader.setInverted(true);
+    m_leftLeader.setInverted(true);
+    m_leftFollower.setInverted(true);
+
+    m_leftFollower.follow(m_leftLeader);
+    m_rightFollower.follow(m_rightLeader);
   }
 
   /**
