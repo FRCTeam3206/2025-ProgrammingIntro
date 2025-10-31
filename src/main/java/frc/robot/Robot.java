@@ -44,6 +44,8 @@ public class Robot extends TimedRobot {
   private void configureBindings() {
     drive.setDefaultCommand(
       drive.arcadeDriveCommand(() -> -controller.getLeftY(), () -> -controller.getRightX()));
+    
+    controller.a().whileTrue(drive.arcadeDriveCommand(() -> 0, () -> .5).withTimeout(2));
   }
 
   /**
@@ -53,8 +55,14 @@ public class Robot extends TimedRobot {
    */
   public Command getAutonomousCommand() {
     // return a command that does nothing
-    return new RunCommand(() -> {});
+    return simpleAuto();
   }
+
+public Command simpleAuto() {
+  return drive.arcadeDriveCommand(() -> 0.5, () -> 0).withTimeout(2)
+    .andThen(drive.arcadeDriveCommand(() -> 0, () -> 0.5).withTimeout(2))
+    .andThen(drive.arcadeDriveCommand(() -> 0.5, () -> 0).withTimeout(2));
+}
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -92,7 +100,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+
+  }
 
   @Override
   public void teleopInit() {
