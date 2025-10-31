@@ -50,7 +50,7 @@ public class Drive extends SubsystemBase {
   public Command arcadeDriveCommand(DoubleSupplier fwd, DoubleSupplier rot) {
     // A split-stick arcade command, with forward/backward controlled by the left
     // hand, and turning controlled by the right.
-    return run(() -> m_drive.arcadeDrive(fwd.getAsDouble(), rot.getAsDouble()))
+    return run(() -> m_drive.arcadeDrive(fwd.getAsDouble(), rot.getAsDouble(), false))
         .withName("arcadeDrive");
   }
 
