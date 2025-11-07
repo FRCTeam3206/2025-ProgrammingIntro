@@ -44,6 +44,12 @@ private final CommandXboxController controller = new CommandXboxController(0);
 //this is comment
 
   private void configureBindings() {
+    controller.a().whileTrue(drive.arcadeDriveCommand(()->0, ()->0.5).withTimeout(2));
+    //Uses the Xbox Controller for two-stick arcade-style drive
+    drive.setDefaultCommand(
+      drive.arcadeDriveCommand(() -> -0.5*controller.getLeftY(), () -> -0.5*controller.getLeftX()));
+    
+    
 
   }
 
@@ -54,7 +60,11 @@ private final CommandXboxController controller = new CommandXboxController(0);
    */
   public Command getAutonomousCommand() {
     // return a command that does nothing
-    return new RunCommand(() -> {});
+    return simpleAuto();
+  }
+
+  public Command simpleAuto() {
+    return drive.arcadeDriveCommand( ()->0.5, ()-> 0).withTimeout(2);
   }
 
   /**
