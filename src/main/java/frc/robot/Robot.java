@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
+import frc.robot.subsystems.Drive;
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
  * the TimedRobot documentation. If you change the name of this class or the package after creating
@@ -18,6 +18,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+
+private final Drive drive = new Drive();
+private final CommandXboxController controller = new CommandXboxController(0);
 
   /**
    * This function is run when the robot is first started up and should be used for any
