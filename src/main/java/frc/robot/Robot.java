@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
   private void configureBindings() {
     // Use xbox controller for two-stick arcade-style drive
     drive.setDefaultCommand(
-    drive.arcadeDriveCommand(() -> -0.5*controller.getLeftY(), () -> -0.5*controller.getRightX()));  
+    drive.arcadeDriveCommand(() -> -0.5*controller.getRightY(), () -> -0.5*controller.getRightX()));  
 
   }
 
@@ -56,9 +56,14 @@ public class Robot extends TimedRobot {
    */ 
   public Command getAutonomousCommand() {
     // return a command that does nothing
-    return new RunCommand(() -> {});
+    return simpleAuto();
   }
 
+  public Command simpleAuto() {
+    return drive.arcadeDriveCommand( ()->0.5, ()->0.0).withTimeout(2)
+      .andThen(drive.arcadeDriveCommand( ()->0.0, ()->0.5).withTimeout(2))
+      .andThen(drive.arcadeDriveCommand( ()->0.5, ()->0.0).withTimeout(2));
+  }
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
    * that you want ran during disabled, autonomous, teleoperated and test.

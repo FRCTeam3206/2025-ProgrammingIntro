@@ -37,7 +37,8 @@ public class Drive extends SubsystemBase {
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_rightLeader.setInverted(true);
+    m_leftLeader.setInverted(true);
+    m_leftFollower.setInverted(true);
   }
 
   /**
@@ -49,7 +50,7 @@ public class Drive extends SubsystemBase {
   public Command arcadeDriveCommand(DoubleSupplier fwd, DoubleSupplier rot) {
     // A split-stick arcade command, with forward/backward controlled by the left
     // hand, and turning controlled by the right.
-    return run(() -> m_drive.arcadeDrive(fwd.getAsDouble(), rot.getAsDouble()))
+    return run(() -> m_drive.arcadeDrive(fwd.getAsDouble(), rot.getAsDouble(), false))
         .withName("arcadeDrive");
   }
 
