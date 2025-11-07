@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
+import frc.robot.subsystems.Drive;
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
  * the TimedRobot documentation. If you change the name of this class or the package after creating
@@ -19,12 +19,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
+  private final Drive drive = new Drive();
+  private final CommandXboxController controller = new CommandXboxController(0);
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   public Robot() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // Instantiate our Robot.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     configureBindings();
     //Hello
@@ -43,7 +46,10 @@ public class Robot extends TimedRobot {
    * joysticks}.
    */
   private void configureBindings() {
-
+    drive.setDefaultCommand(
+      drive.arcadeDriveCommand(() -> -controller.getLeftY(), () -> -controller.getRightX()));
+    
+    controller.a().whileTrue(drive.arcadeDriveCommand(() -> 0, () -> .5).withTimeout(2));
   }
 
   /**
@@ -53,8 +59,14 @@ public class Robot extends TimedRobot {
    */
   public Command getAutonomousCommand() {
     // return a command that does nothing
-    return new RunCommand(() -> {});
+    return simpleAuto();
   }
+
+public Command simpleAuto() {
+  return drive.arcadeDriveCommand(() -> 0.5, () -> 0).withTimeout(2)
+    .andThen(drive.arcadeDriveCommand(() -> 0, () -> 0.5).withTimeout(2))
+    .andThen(drive.arcadeDriveCommand(() -> 0.5, () -> 0).withTimeout(2));
+}
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -92,7 +104,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+
+  }
 
   @Override
   public void teleopInit() {

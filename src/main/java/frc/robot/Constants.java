@@ -18,9 +18,9 @@ public final class Constants {
   }
 
   public static class DriveConstants {
-    public static final int kLeftMotor1ID = 1;
-    public static final int kLeftMotor2ID = 2;
-    public static final int kRightMotor1ID = 3;
-    public static final int kRightMotor2ID = 4;
+    public static final int kLeftMotor1ID = 7;
+    public static final int kLeftMotor2ID = 8;
+    public static final int kRightMotor1ID = 10;
+    public static final int kRightMotor2ID = 11;
   }
 }
