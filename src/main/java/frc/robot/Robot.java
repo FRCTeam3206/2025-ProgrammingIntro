@@ -42,9 +42,9 @@ public class Robot extends TimedRobot {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
-  private void configureBindings() {
-    drive.setDefaultCommand(
-      drive.arcadeDriveCommand(() -> -0.25*controller.getLeftY(), () -> -0.25*controller.getRightX()));
+  private Command configureBindings() {
+    return drive.arcadeDriveCommand(() -> 0.1, () -> 0);
+
   }
 
   /**
@@ -104,6 +104,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    configureBindings().schedule();
   }
 
   public Command simpleAuto() {
