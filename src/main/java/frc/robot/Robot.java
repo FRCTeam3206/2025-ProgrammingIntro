@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
     drive.setDefaultCommand(
       drive.arcadeDriveCommand(() -> -controller.getLeftY(), () -> -controller.getRightX()));
     
-    controller.a().whileTrue(drive.arcadeDriveCommand(() -> 0, () -> .5).withTimeout(2));
+    controller.a().onTrue(drive.arcadeDriveCommand(() -> 0, () -> .5).withTimeout(2));
   }
 
   /**
@@ -117,6 +117,7 @@ public Command simpleAuto() {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    configureBindings();
   }
 
   /** This function is called periodically during operator control. */
