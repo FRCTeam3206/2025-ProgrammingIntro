@@ -2,22 +2,36 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.BallLauncherConstants;
 
 public class BallLauncher extends SubsystemBase {
     private final WPI_VictorSPX m_Launcher = new WPI_VictorSPX(BallLauncherConstants.kLauncherMotor);
-    public BallLauncher() {
-      
+    private final Encoder motorSpeed = new Encoder(BallLauncherConstants.kLauncherMotor, BallLauncherConstants.kLauncherMotor);
+    public BallLauncher() {  
     }
+    
+    public void startUp() {        
+        m_Launcher.set(0.1);
+    }
+    
     public void launch() {
-        m_Launcher.set(0.25);
+        if (motorSpeed.getRate() > 0.1) {
+            m_Launcher.set(0.7);
+        }
+        else {
+            stop();
+        }
+    }
+
+    public void stop(){
+        m_Launcher.stopMotor();
     }
 
     public Command launchCommand() {
-        return this.run(() -> launch());
+        return this.run(() -> startUp()).withTimeout(0.5).andThen(()->launch()).finallyDo(this::stop);
     }
 
 }
