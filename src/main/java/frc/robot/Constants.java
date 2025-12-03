@@ -25,5 +25,6 @@ public final class Constants {
   }
   public static class BallLauncherConstants {
     public static final int kLauncherMotor = 15;
+    public static final int kFeederMotor = 16;
   }
 }
