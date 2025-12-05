@@ -9,6 +9,7 @@ import frc.robot.Constants.BallLauncherConstants;
 
 public class BallLauncher extends SubsystemBase {
     private final WPI_VictorSPX m_Launcher = new WPI_VictorSPX(BallLauncherConstants.kLauncherMotor);
+    private final WPI_VictorSPX m_Feeder =  new WPI_VictorSPX(BallLauncherConstants.kFeederMotor);
     private final Encoder motorSpeed = new Encoder(BallLauncherConstants.kLauncherMotor, BallLauncherConstants.kLauncherMotor);
     public BallLauncher() {  
     }
@@ -31,7 +32,16 @@ public class BallLauncher extends SubsystemBase {
     }
 
     public Command launchCommand() {
-        return this.run(() -> startUp()).withTimeout(0.5).andThen(()->launch()).finallyDo(this::stop);
+        return this.run(() -> m_Launcher.set(1.0))
+                        .withTimeout(1.0)
+                        .andThen(() -> m_Feeder.set(0.25))
+                        .finallyDo(() -> {m_Launcher.stopMotor(); m_Feeder.stopMotor();})  ;
+
     }
+
+    // }
+
+    //         .wait(1)            .withTimeout(0.5).andThen(()->launch()).finallyDo(this::stop);
+    // }
 
 }
