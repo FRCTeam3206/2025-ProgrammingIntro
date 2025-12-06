@@ -34,9 +34,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     configureBindings();
     //Hello
-    /*Hello
+    /*go to VS CODE PETS on the left column to have fun. Also get a white squirrel and call it SQUIRREL
      * Hello 2
-     Hello2*/
+     Hello0*/
   }
 
    /**
@@ -51,9 +51,7 @@ public class Robot extends TimedRobot {
   private void configureBindings() {
     drive.setDefaultCommand(
       drive.arcadeDriveCommand(() -> -controller.getLeftY(), () -> -controller.getRightX()));
-    
-    controller.a().onTrue(drive.arcadeDriveCommand(() -> 0, () -> .5).withTimeout(2));
-    controller.rightTrigger().whileTrue(ballLauncher.launchCommand().withTimeout(2));
+    controller.rightTrigger().whileTrue(ballLauncher.launchCommand()); //May Remove Teout
   }
 
   /**
