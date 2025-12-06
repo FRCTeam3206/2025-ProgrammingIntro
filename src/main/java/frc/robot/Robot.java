@@ -51,7 +51,8 @@ public class Robot extends TimedRobot {
   private void configureBindings() {
     drive.setDefaultCommand(
       drive.arcadeDriveCommand(() -> -controller.getLeftY(), () -> -controller.getRightX()));
-    controller.rightTrigger().whileTrue(ballLauncher.launchCommand()); //May Remove Teout
+    controller.rightTrigger().whileTrue(ballLauncher.fullLaunchCommand());
+    controller.leftTrigger().whileTrue(ballLauncher.halfLaunchCommand()); //May Remove Teout
   }
 
   /**
