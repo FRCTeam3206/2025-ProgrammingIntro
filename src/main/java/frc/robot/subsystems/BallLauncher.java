@@ -59,4 +59,18 @@ public class BallLauncher extends SubsystemBase {
             .finallyDo(() -> {m_Launcher.stopMotor(); m_Feeder.stopMotor();})   ;
 
     }
+    public Command testLaunchCommand() {
+        return this.run
+        (() -> {m_Launcher.set(.8);
+                m_Feeder.set(1.0);})
+        
+                        //.withTimeout(1.0)
+                        /* .andThen(() -> {
+                            m_Feeder.set(1.0);
+                            m_Launcher.set(1.0);
+                        })*/
+                        
+            .finallyDo(() -> {m_Launcher.stopMotor(); m_Feeder.stopMotor();})   ;
+
+    }
 }
